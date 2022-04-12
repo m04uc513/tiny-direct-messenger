@@ -1,112 +1,37 @@
-# 1. プロジェクトの作成
+# tiny-direct-messenger （第１回）
 
 <div style="text-align: right;">
-確認　2022/04/08<BR>
-初版　2022/02/17<BR>
+第１回　2022/04/12<BR>
 藤田昭人
 </div>
 
 <BR><BR>
 
-express を使って最小限のウェブアプリケーションを作る。
+本ドキュメントでは一般的なＳＮＳでサポートされている
+ダイレクトメッセージ（ＤＭ）の機能のみを js+vue.js を使って実装します。
 
-## 1. 概要
+<BR><BR>
 
-以下のコマンドでディレクトリの初期化をした。
+## 第１回の課題
 
-```
-$ npm init
-$ npm install express
-$ npm install body-parser
-$ 
-```
+今回は実習の前提となる Vue.js の動作を確認します。
 
-ウェブサーバーとしての挙動は
-server.js（Appendix A）
-で記述した。
+[基礎から学ぶ Vue.js](https://www.amazon.co.jp/%E6%94%B9%E8%A8%822%E7%89%88-%E5%9F%BA%E7%A4%8E%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6Vue-js-2-x%E5%AF%BE%E5%BF%9C-mio/dp/4863543239/ref=pd_vtp_sccl_2/357-0939054-3120259?pd_rd_w=jDyJO&pf_rd_p=cbb45385-7b99-44b7-a528-bff5ddaa153d&pf_rd_r=5W83K9FPAAGFWSPSR1SN&pd_rd_r=ce8b51af-023e-4da7-bf5e-4245ecd7885c&pd_rd_wg=S5e9d&pd_rd_i=4863543239&psc=1)
+の第２章から第４章までのコード事例を index.html に記述して、
+その動作を確認してください。
 
-以下のコマンドでサーバーを実行できる。
+なお、コードの記述の方法が分からなければ
+[Marbles Day](https://marbles.hatenablog.com/archive/category/Vue.js)
+のページが参考になります。
 
-```
-$ node server.js
-```
-
-クライアントで実行されるコードは public 下の html ファイルに記述する。
-サンプルとして admin.html, login.html, user.html を Appendix B を示す。
-中身は Vue.js のための最小限の記述である。
-
-<div style="page-break-before:always"></div>
-
-## A. server.js
-
-```
-// server.js
-// where your node app starts
-
-// init project
-const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
-const fs = require("fs");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// we've started you off with Express,
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
-
-// http://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(`${__dirname}/public/login.html`);
-});
-
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT, () => {
-  console.log(`Your app is listening on port ${listener.address().port}`);
-});
-```
-
-<div style="page-break-before:always"></div>
-
-## B. admin.html, login.html, user.html
-
-```
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Vue.js Web Application">
-<title>login</title>
-  <style type="text/css">
-  </style>
-</head>
-<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
-<body>
-  <div id="app">
-    <div id="header">
-      <h2>login</h2>
-    </div>
-    <div id="body"></div>
-    <div id="footer"></div>
-  </div>
-<script>
-    var app = new Vue({
-      el: '#app'
-    });
-  </script>
-</body>
-</html>
-```
 
 <div style="page-break-before:always"></div>
 
 ## 参考文献
 
-* [Favicon.ico アイコン](https://icon-icons.com/ja/%E6%A4%9C%E7%B4%A2/%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3/?filtro=favicon.ico)
+* [改訂2版 基礎から学ぶ Vue.js [2.x対応! ]](https://www.amazon.co.jp/%E6%94%B9%E8%A8%822%E7%89%88-%E5%9F%BA%E7%A4%8E%E3%81%8B%E3%82%89%E5%AD%A6%E3%81%B6Vue-js-2-x%E5%AF%BE%E5%BF%9C-mio/dp/4863543239/ref=pd_vtp_sccl_2/357-0939054-3120259?pd_rd_w=jDyJO&pf_rd_p=cbb45385-7b99-44b7-a528-bff5ddaa153d&pf_rd_r=5W83K9FPAAGFWSPSR1SN&pd_rd_r=ce8b51af-023e-4da7-bf5e-4245ecd7885c&pd_rd_wg=S5e9d&pd_rd_i=4863543239&psc=1)
+* [基礎から学ぶ Vue.js 書籍用サポートページ](https://cr-vue.mio3io.com/)
+* [Vue -- Marbles Day](https://marbles.hatenablog.com/archive/category/Vue.js)
 
 
 <div style="page-break-before:always"></div>
@@ -115,11 +40,13 @@ var listener = app.listen(process.env.PORT, () => {
 
 |名前|解説|
 |---|----|
-|README.md||
-|README-ja.md||
-|README-ja.pdf||
-|server.js|express を利用したサーバーコード|
-|public/admin.html|ダミーページ（管理用）|
-|public/login.html|ダミーページ（ログイン）|
-|public/user.html|ダミーページ（ユーザー用）|
-|public/favicon.ico|ページアイコン|
+|README.md|概要説明（英文、今はダミー）|
+|README-ja.md|概要説明（和文、このファイル）|
+|README-ja.pdf|概要説明（和文、PDF版）|
+|shrinkwrap.yaml|glitchのファイル（触らない）|
+|LICENSE|ライセンス|
+|package.json|npm パッケージの管理ファイル（後日説明）|
+|server.js|サーバー側のコード|
+|public/index.html|クライアント側のコード|
+|public/favicon.ico|ブラウザー用のアイコンイメージ|
+| | |
