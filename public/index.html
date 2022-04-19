@@ -12,14 +12,36 @@
 <body>
   <div id="app">
     <div id="header">
-      <h2>login</h2>
+      <h2>EchoBack Test</h2>
+      <hr>
+      <input type="button" value="エコー" v-on:click="echoBack">
     </div>
     <div id="body"></div>
     <div id="footer"></div>
   </div>
 <script>
+    async function post(path, param) {
+      const response = await fetch(path, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+      });
+      const ret = await response.json();
+      return(ret.response);
+    }
+
     var app = new Vue({
-      el: '#app'
+      el: '#app',
+      methods: {
+        echoBack: async function (e) {
+          var param = { message: 'hoge' };
+          console.log("param:    ", JSON.stringify(param));
+          const response = await post('/echoback', param);
+          console.log("response: ", JSON.stringify(response));
+        }
+      }
     });
   </script>
 </body>
